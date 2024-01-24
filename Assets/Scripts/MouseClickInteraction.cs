@@ -6,7 +6,12 @@ public class MouseClickInteraction : MonoBehaviour, IPointerEnterHandler, IPoint
 {
     private bool m_is_mouse_over_panel;
 
-    public Action m_click_callback;
+    private Action m_on_click;
+
+    public void SetClickAction(Action action)
+    {
+        m_on_click = action;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -22,7 +27,7 @@ public class MouseClickInteraction : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         if (Input.GetMouseButtonDown(0) && m_is_mouse_over_panel)
         {
-            m_click_callback?.Invoke();
+            m_on_click?.Invoke();
         }
     }
 }

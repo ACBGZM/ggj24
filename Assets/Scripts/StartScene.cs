@@ -14,7 +14,7 @@ public class StartScene : MonoBehaviour
         BackAnim.isLoop = true;
         BackAnim.Folder = "StartLoop";
         BackAnim.RefreshAnim();
-        startbutton.m_click_callback = () =>
+        startbutton.SetClickAction(() =>
         {
             BackAnim.isLoop = false;
             BackAnim.Folder = "Start";
@@ -23,7 +23,7 @@ public class StartScene : MonoBehaviour
                 SceneManager.LoadScene("PrimaryScene");
             };
             BackAnim.RefreshAnim();
-        };
+        });
     }
 
     // Update is called once per frame
