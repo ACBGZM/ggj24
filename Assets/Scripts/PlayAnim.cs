@@ -1,29 +1,35 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using System;
 //using static System.Net.Mime.MediaTypeNames;
 
 public class PlayAnim : MonoBehaviour
 {
-    public string Folder;//Í¼Æ¬µÄÎÄ¼şÃû
-    RawImage RawImageObject;//Ê¹ÓÃRawImage¼ÓÔØ
-    public float  time;//Í¼Æ¬Ê±¼ä¼ä¸ô
+    public string Folder;//å›¾ç‰‡çš„æ–‡ä»¶å
+    RawImage RawImageObject;//ä½¿ç”¨RawImageåŠ è½½
+    public float time;//å›¾ç‰‡æ—¶é—´é—´éš”
+    public bool isLoop;
+
+    public Action OnAnimEnd;
+    IEnumerator enumerator;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         texs = new List<Texture>();
         RawImageObject = GetComponent<RawImage>();
-        StartCoroutine(LoadTexture2D(Application.dataPath + "/Resources/Image/" + Folder));
+        enumerator = LoadTexture2D(Application.dataPath + "/Resources/Image/" + Folder);
+        //StartCoroutine(enumerator);
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+
     }
     List<Texture> texs;
 
@@ -31,17 +37,19 @@ public class PlayAnim : MonoBehaviour
     {
         UnityWebRequest request;
         DirectoryInfo direction = new DirectoryInfo(path);
-        //ÎÄ¼ş¼ĞÏÂÒ»²ãµÄËùÓĞ×ÓÎÄ¼ş
-        //SearchOption.TopDirectoryOnly£ºÕâ¸öÑ¡ÏîÖ»È¡ÏÂÒ»²ãµÄ×ÓÎÄ¼ş
-        //SearchOption.AllDirectories£ºÕâ¸öÑ¡Ïî»áÈ¡ÆäÏÂËùÓĞµÄ×ÓÎÄ¼ş
+        //æ–‡ä»¶å¤¹ä¸‹ä¸€å±‚çš„æ‰€æœ‰å­æ–‡ä»¶
+        //SearchOption.TopDirectoryOnlyï¼šè¿™ä¸ªé€‰é¡¹åªå–ä¸‹ä¸€å±‚çš„å­æ–‡ä»¶
+        //SearchOption.AllDirectoriesï¼šè¿™ä¸ªé€‰é¡¹ä¼šå–å…¶ä¸‹æ‰€æœ‰çš„å­æ–‡ä»¶
+        if (texs != null)
+            texs.Clear();
         FileInfo[] files = direction.GetFiles("*", SearchOption.TopDirectoryOnly);
         for (int i = 0; i < files.Length; i++)
         {
 
-            //if (files[i].Name.EndsWith(".jpg"))//È¡½Å±¾ÎÄ¼ş
+            if (files[i].Name.EndsWith(".JPG"))//å–è„šæœ¬æ–‡ä»¶
             {
                 string respath = files[i].Name;
-                request = UnityWebRequestTexture.GetTexture(Application.dataPath + "/Resources/Image/" + Folder+'/'+respath);
+                request = UnityWebRequestTexture.GetTexture(Application.dataPath + "/Resources/Image/" + Folder + '/' + respath);
                 yield return request.SendWebRequest();
                 if (request.result == UnityWebRequest.Result.Success)
                 {
@@ -50,16 +58,36 @@ public class PlayAnim : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError(Application.dataPath + "/Resources/Image" + Folder + '/' + respath + "Í¼Æ¬´íÎó£º" + request.result);
+                    Debug.LogError(Application.dataPath + "/Resources/Image" + Folder + '/' + respath + "å›¾ç‰‡é”™è¯¯ï¼š" + request.result);
                 }
             }
-               
+
         }
-        for (int i = 0; i < texs.Count; i++)//°´Ê±¼ä¼ä¸ôÇĞ»»Í¼Æ¬
+        for (int i = 0; i < texs.Count; i++)//æŒ‰æ—¶é—´é—´éš”åˆ‡æ¢å›¾ç‰‡
         {
             RawImageObject.texture = texs[i];
             yield return new WaitForSeconds(time);
+            if (isLoop && i == texs.Count - 1)
+            {
+                i = 0;
+            }
         }
+        if (OnAnimEnd != null) OnAnimEnd();
     }
-  
+
+    public void RefreshAnim()
+    {
+
+
+        if (enumerator != null)
+        {
+            StopCoroutine(enumerator);
+            enumerator = null;
+        }
+
+        // StopCoroutine(enumerator);
+        enumerator = LoadTexture2D(Application.dataPath + "/Resources/Image/" + Folder);
+        StartCoroutine(enumerator);
+    }
+
 }
