@@ -1,6 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -18,7 +15,7 @@ public class NodeData
 [System.Serializable]
 public class LinkData
 {
-    public uint m_node_from;
-    public uint m_node_to;
+    public uint m_node_index_a;
+    public uint m_node_index_b;
     public int m_cost;
 }
