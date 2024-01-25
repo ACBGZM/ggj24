@@ -16,7 +16,7 @@ public class Node : MouseClickInteraction
 
     public void OnNodeClicked()
     {
-        NodeManager.GetInstance().SetActiveNode(m_data.m_index);
+        GameManager.GetInstance().SetActiveNodeIndex(m_data.m_index);
         m_click_callback?.Invoke();
     }
 }
