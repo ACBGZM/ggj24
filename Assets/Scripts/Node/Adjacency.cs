@@ -33,8 +33,13 @@ public class Adjacency
         {
             m_adjacency[a] = new List<Edge>();
         }
-
         m_adjacency[a].Add(new Edge(b, cost));
+
+        if (!m_adjacency.ContainsKey(b))
+        {
+            m_adjacency[b] = new List<Edge>();
+        }
+        m_adjacency[b].Add(new Edge(a, cost));
     }
 
     public void AddEdge(LinkData link_data)
@@ -58,6 +63,10 @@ public class Adjacency
                 if (edge.m_target_index == b)
                 {
                     weight = edge.m_weight;
+                    edge.m_weight = 0;  // set weight to zero when it is reached
+
+                    m_adjacency[b].Find(edge => edge.m_target_index == a).m_weight = 0;
+
                     return true;
                 }
             }

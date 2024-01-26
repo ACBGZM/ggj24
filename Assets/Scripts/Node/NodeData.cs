@@ -1,4 +1,4 @@
-using UnityEngine.UI;
+using UnityEngine;
 
 [System.Serializable]
 public class NodeData
@@ -7,7 +7,7 @@ public class NodeData
     public int m_bonus;
     public int m_x;
     public int m_y;
-    public Image m_story_image;
+    public Sprite m_story_sprite;
     public bool m_is_begin;
     public bool m_is_end;
 }
