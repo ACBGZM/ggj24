@@ -11,7 +11,7 @@ public class Node : MouseClickInteraction
         m_data = data;
         SetClickAction(OnNodeClicked);
         m_click_callback = click_callback;
-        transform.position += new Vector3(data.m_x, data.m_y, 0);
+        transform.localPosition += new Vector3(data.m_x, data.m_y, 0);
     }
 
     public void OnNodeClicked()

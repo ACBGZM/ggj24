@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -232,6 +233,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32
   m_MaxRayIntersections: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a32be1eacce28543ae32648cedff4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blur_mat: {fileID: 2100000, guid: be0fc13f60a56094c91028e424309c65, type: 2}
+  blur_iteration: 4
+  blur_spread: 1
+  blur_down_sample: 4
+  render_blur_screenShot: 0
 --- !u!1 &624512004
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,8 +505,8 @@ Canvas:
   m_GameObject: {fileID: 1357192446}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
