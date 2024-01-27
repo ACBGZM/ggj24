@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 public class Edge
 {
     public uint m_target_index;
@@ -63,10 +64,6 @@ public class Adjacency
                 if (edge.m_target_index == b)
                 {
                     weight = edge.m_weight;
-                    edge.m_weight = 0;  // set weight to zero when it is reached
-
-                    m_adjacency[b].Find(edge => edge.m_target_index == a).m_weight = 0;
-
                     return true;
                 }
             }
@@ -86,5 +83,21 @@ public class Adjacency
 
         edges = null;
         return false;
+    }
+
+    public void SetWeightToZero(uint a, uint b)
+    {
+        if (m_adjacency.ContainsKey(a))
+        {
+            foreach (Edge edge in m_adjacency[a])
+            {
+                if (edge.m_target_index == b)
+                {
+                    edge.m_weight = 0;  // set weight to zero when it is reached
+
+                    m_adjacency[b].Find(edge => edge.m_target_index == a).m_weight = 0;
+                }
+            }
+        }
     }
 }

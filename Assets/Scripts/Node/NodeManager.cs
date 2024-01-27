@@ -11,17 +11,15 @@ public class NodeManager : MonoBehaviour
 
     public NodeGraph m_node_graph;
 
-    private Adjacency m_adjacency;
-
     private List<uint> m_found_node_index_list;
 
+    private List<Node> m_node_list;
     private List<Link> m_link_list;
-
-    private uint m_previous_node_index;
 
     public void Awake()
     {
         m_found_node_index_list = new List<uint>();
+        m_node_list = new List<Node>();
         m_link_list = new List<Link>();
 
         m_node_prefab = Resources.Load<GameObject>("Node");
@@ -29,12 +27,11 @@ public class NodeManager : MonoBehaviour
 
         m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
 
-        m_adjacency = new Adjacency();
 
         // initialize adjacency
         foreach (LinkData link_data in m_node_graph.m_link_data_list)
         {
-            m_adjacency.AddEdge(link_data);
+            GameManager.GetInstance().m_adjacency.AddEdge(link_data);
         }
     }
 
@@ -52,11 +49,27 @@ public class NodeManager : MonoBehaviour
 
     public void NodeClickCallback()
     {
-        if (!m_found_node_index_list.Contains(GameManager.GetInstance().GetActiveNodeIndex()))
+        uint active_node_index = GameManager.GetInstance().GetActiveNodeIndex();
+
+        // show movement and calculate link value
+        if (!GameManager.GetInstance().m_is_first_click)
+        {
+            uint previous_node_index = GameManager.GetInstance().GetPreviousNodeIndex();
+            m_node_list.Find(node => node.GetNodeIndex() == previous_node_index)?.SetActiveNode(false);
+
+            GameManager.GetInstance().MoveToActiveNode();
+
+            UpdateLinks();
+        }
+        m_node_list.Find(node => node.GetNodeIndex() == active_node_index)?.SetActiveNode(true);
+        GameManager.GetInstance().m_is_first_click = false;
+
+        // show story panel
+        if (!m_found_node_index_list.Contains(active_node_index))
         {
             SetOtherObjectActive(false);
 
-            m_found_node_index_list.Add(GameManager.GetInstance().GetActiveNodeIndex());
+            m_found_node_index_list.Add(active_node_index);
 
             GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
             StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
@@ -64,23 +77,9 @@ public class NodeManager : MonoBehaviour
         }
     }
 
-    private void CalculateValueAfterMove()
-    {
-        if(m_adjacency.GetWeight(m_previous_node_index, GameManager.GetInstance().GetActiveNodeIndex(), out int cost))
-        {
-            GameManager.GetInstance().AddToValue(cost);
-
-            UpdateLinks();
-        }
-        m_previous_node_index = GameManager.GetInstance().GetActiveNodeIndex();
-    }
-
     public void StoryFinishCallback()
     {
         SetOtherObjectActive(true);
-
-        // calculalte value of previous move and update links
-        CalculateValueAfterMove();
 
         StartCoroutine(ShowAdjacencyNodes());
     }
@@ -95,6 +94,8 @@ public class NodeManager : MonoBehaviour
         GameObject node_object = Instantiate(m_node_prefab, transform);
         Node node = node_object.GetComponent<Node>();
         node.Initialize(node_data, NodeClickCallback);
+
+        m_node_list.Add(node);
     }
 
     private void CreateLinkInstance(NodeData data_a, NodeData data_b, int m_weight)
@@ -136,7 +137,9 @@ public class NodeManager : MonoBehaviour
 
     IEnumerator ShowAdjacencyNodes()
     {
-        yield return new WaitForSecondsRealtime(1.2f);
+        GameManager.GetInstance().DisableMouseInteraction();
+
+        yield return new WaitForSecondsRealtime(1.0f);
 
         NodeData node_data = m_node_graph.m_node_data_list.Find(data => data.m_index == GameManager.GetInstance().GetActiveNodeIndex());
         if (node_data != null)
@@ -146,7 +149,7 @@ public class NodeManager : MonoBehaviour
 
             // show new nodes and links
             List<Edge> adjacent_edges = new List<Edge>();
-            if (m_adjacency.GetAdjacentEdges(GameManager.GetInstance().GetActiveNodeIndex(), out adjacent_edges))
+            if (GameManager.GetInstance().m_adjacency.GetAdjacentEdges(GameManager.GetInstance().GetActiveNodeIndex(), out adjacent_edges))
             {
                 foreach (Edge edge in adjacent_edges)
                 {
@@ -162,6 +165,9 @@ public class NodeManager : MonoBehaviour
 
             UpdateLinks();
         }
+
+        GameManager.GetInstance().EnableMouseInteraction();
+
         yield return null;
     }
 

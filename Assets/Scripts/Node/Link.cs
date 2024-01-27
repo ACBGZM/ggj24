@@ -49,6 +49,11 @@ public class Link : MonoBehaviour
 
     public void UpdateCost()
     {
+        if(GameManager.GetInstance().m_adjacency.GetWeight(m_node_index_a, m_node_index_b, out int weight))
+        {
+            m_cost = weight;
+        }
+
         // debug
         GetComponentInChildren<TextMeshProUGUI>().text = m_cost.ToString();
         GetComponentInChildren<TextMeshProUGUI>().gameObject.transform.localPosition =
@@ -57,6 +62,5 @@ public class Link : MonoBehaviour
                 (m_line_renderer.GetPosition(0).y + m_line_renderer.GetPosition(1).y) / 2 + 50.0f,
                 0.0f
             );
-        ;
     }
 }
