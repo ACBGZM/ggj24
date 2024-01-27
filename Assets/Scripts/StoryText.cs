@@ -29,15 +29,15 @@ public class StoryText : MonoBehaviour
         Str = text;
 
         textMesh.text = Str;
-        bg.rectTransform.sizeDelta = textMesh.GetPreferredValues()+new Vector2(20f, 20f);
-
+        bg.rectTransform.sizeDelta = textMesh.GetPreferredValues() + new Vector2(80f, 40f);
+        //bg.rectTransform.sizeDelta = new Vector2(Str.Length * 30 + 200, bg.rectTransform.sizeDelta.y);
         textMesh.text = "";
         StartCoroutine(LoadText());
 
     }
     public IEnumerator LoadText()
     { 
-        for(int i = 0; i < Str.Length; i++)
+        for(int i = 0; i <= Str.Length; i++)
         {
             textMesh.text = Str.Substring(0,i);
             yield return new WaitForSeconds(0.1f);

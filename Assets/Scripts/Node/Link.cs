@@ -11,6 +11,8 @@ public class Link : MonoBehaviour
 
     private Vector3 m_direction;
 
+    public Texture2D m_texture;
+
     public void Initialize(NodeData data_a, NodeData data_b, int m_weight)
     {
         m_cost = m_weight;
@@ -29,11 +31,11 @@ public class Link : MonoBehaviour
             m_line_renderer = gameObject.AddComponent<LineRenderer>();
         }
 
-        //m_line_renderer.material = new Material(Shader.Find("Standard"));
-        m_line_renderer.startColor = Color.red;
-        m_line_renderer.endColor = Color.blue;
-        m_line_renderer.startWidth = 0.25f;
-        m_line_renderer.endWidth = 0.25f;
+        m_texture = Resources.Load<Texture2D>("Line");
+
+        m_line_renderer.material.mainTexture = m_texture;
+        m_line_renderer.startWidth = 0.15f;
+        m_line_renderer.endWidth = 0.15f;
 
         Vector3 position_a = new Vector3(data_a.m_x, data_a.m_y, 0.0f);
         Vector3 position_b = new Vector3(data_b.m_x, data_b.m_y, 0.0f);

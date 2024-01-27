@@ -1,11 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using System.Collections;
-using System.Collections.Generic;
-using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
 
 public class StoryPanel : MouseClickInteraction
 {
@@ -16,6 +12,8 @@ public class StoryPanel : MouseClickInteraction
     GameObject ui_cam;
     ScreenBlurEffect blurtool;
 
+    private StoryData m_story_data;
+    [SerializeField] private Image m_show_image;
 
     public void Awake()
     {
@@ -48,15 +46,32 @@ public class StoryPanel : MouseClickInteraction
         StartCoroutine(LoadText());
 
     }
+
+    public void SetStoryDataList(StoryData story_data_list)
+    {
+        m_story_data = story_data_list;
+    }
+
+    public void SetStoryImage(Sprite show_sprite)
+    {
+        m_show_image.sprite = show_sprite;
+    }
+
     public IEnumerator LoadText()//生成文本框
     {
+        GameManager.GetInstance().DisableMouseInteraction();
 
-        for (int i = 0; i < 10; i++)
+        if(m_story_data != null)
         {
-            yield return new WaitForSeconds(1f);
-            AddText("fefefafefaf", new Vector2(100*i,200* i));
-           
+            foreach (StoryTextData story_data in m_story_data.m_story_list)
+            {
+                yield return new WaitForSeconds(story_data.m_wait_time);
+                AddText(story_data.m_text_content, new Vector3(story_data.m_x, story_data.m_y, 0.0f));
+
+            }
         }
+
+        GameManager.GetInstance().EnableMouseInteraction();
     }
     void AddText(string text,Vector2 offset)
     {
@@ -71,8 +86,4 @@ public class StoryPanel : MouseClickInteraction
         Destroy(gameObject);
         m_callback?.Invoke();
     }
-}
-class StoryTextData
-{
-
 }
