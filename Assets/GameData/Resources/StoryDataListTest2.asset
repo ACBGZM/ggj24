@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d1775573f7dfa45b825370403e2b60, type: 3}
-  m_Name: StoryDataListTest4
+  m_Script: {fileID: 11500000, guid: b487b7c98cf854346a14337bda12858f, type: 3}
+  m_Name: StoryDataListTest2
   m_EditorClassIdentifier: 
+  m_story_image: {fileID: 21300000, guid: 7ac16cfb8cb6f984893cc14f5a710d2b, type: 3}
   m_story_list:
-  - m_text_content: "\u6E38\u620F\u7ED3\u675F"
-    m_x: 0
-    m_y: -300
+  - m_text_content: hello
+    m_x: -93
+    m_y: -226
+    m_wait_time: 0
+  - m_text_content: story text of node 3
+    m_x: 225
+    m_y: 9
     m_wait_time: 1

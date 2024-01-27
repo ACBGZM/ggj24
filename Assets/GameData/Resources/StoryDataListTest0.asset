@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d1775573f7dfa45b825370403e2b60, type: 3}
+  m_Script: {fileID: 11500000, guid: b487b7c98cf854346a14337bda12858f, type: 3}
   m_Name: StoryDataListTest0
   m_EditorClassIdentifier: 
+  m_story_image: {fileID: 21300000, guid: f722c1f0691c9414da90f63720db732f, type: 3}
   m_story_list:
-  - m_text_content: hello!
+  - m_text_content: hello
     m_x: 0
-    m_y: 20
+    m_y: 0
     m_wait_time: 0
-  - m_text_content: story of node 0
-    m_x: 100
+  - m_text_content: story text of node 0
+    m_x: 300
     m_y: 200
-    m_wait_time: 0.5
+    m_wait_time: 0

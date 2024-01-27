@@ -84,7 +84,8 @@ public class NodeManager : MonoBehaviour
             StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
             NodeData data = m_node_graph.m_node_data_list.Find(node_data => node_data.m_index == active_node_index);
 
-            story_panel.SetStoryDataList(data.m_story_data_list);
+            story_panel.SetStoryDataList(data.m_story_data);
+            story_panel.SetStoryImage(data.m_story_data.m_story_image);
 
             if (data.m_is_end)
             {

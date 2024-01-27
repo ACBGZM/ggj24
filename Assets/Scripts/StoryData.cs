@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[System.Serializable]
-public class StoryData
+[CreateAssetMenu(fileName = "StoryDataList", menuName = "GameData/StoryDataList")]
+public class StoryData : ScriptableObject
 {
-    [TextArea] public string m_text_content;
-    public int m_x;
-    public int m_y;
-    public float m_wait_time;
+    public Sprite m_story_image;
+    public List<StoryTextData> m_story_list;
 }
