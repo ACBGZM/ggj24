@@ -37,6 +37,11 @@ public class Node : MouseClickInteraction
         return m_data.m_index;
     }
 
+    public StoryDataList GetNodeStoryDataList()
+    {
+        return m_data.m_story_data_list;
+    }
+
     public void SetActiveNode(bool active)
     {
         if (active)

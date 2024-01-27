@@ -62,7 +62,15 @@ public class NodeManager : MonoBehaviour
 
             UpdateLinks();
         }
-        m_node_list.Find(node => node.GetNodeIndex() == active_node_index)?.SetActiveNode(true);
+
+        Node active_node = m_node_list.Find(node => node.GetNodeIndex() == active_node_index);
+        if (active_node == null)
+        {
+            return;
+        }
+
+        active_node.SetActiveNode(true);
+
         GameManager.GetInstance().m_is_first_click = false;
 
         // show story panel
@@ -74,8 +82,10 @@ public class NodeManager : MonoBehaviour
 
             GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
             StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
-
             NodeData data = m_node_graph.m_node_data_list.Find(node_data => node_data.m_index == active_node_index);
+
+            story_panel.SetStoryDataList(data.m_story_data_list);
+
             if (data.m_is_end)
             {
                 // todo: ends

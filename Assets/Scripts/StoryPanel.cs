@@ -16,6 +16,7 @@ public class StoryPanel : MouseClickInteraction
     GameObject ui_cam;
     ScreenBlurEffect blurtool;
 
+    private StoryDataList m_story_data_list;
 
     public void Awake()
     {
@@ -48,15 +49,27 @@ public class StoryPanel : MouseClickInteraction
         StartCoroutine(LoadText());
 
     }
+
+    public void SetStoryDataList(StoryDataList story_data_list)
+    {
+        m_story_data_list = story_data_list;
+    }
+
     public IEnumerator LoadText()//生成文本框
     {
+        GameManager.GetInstance().DisableMouseInteraction();
 
-        for (int i = 0; i < 10; i++)
+        if(m_story_data_list != null)
         {
-            yield return new WaitForSeconds(1f);
-            AddText("fefefafefaf", new Vector2(100*i,200* i));
-           
+            foreach (StoryData story_data in m_story_data_list.m_story_list)
+            {
+                yield return new WaitForSeconds(story_data.m_wait_time);
+                AddText(story_data.m_text_content, new Vector3(story_data.m_x, story_data.m_y, 0.0f));
+
+            }
         }
+
+        GameManager.GetInstance().EnableMouseInteraction();
     }
     void AddText(string text,Vector2 offset)
     {

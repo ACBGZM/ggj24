@@ -10,6 +10,7 @@ public class NodeData
     public Sprite m_story_sprite;
     public bool m_is_begin;
     public bool m_is_end;
+    public StoryDataList m_story_data_list;
 }
 
 [System.Serializable]

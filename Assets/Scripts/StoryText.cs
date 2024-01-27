@@ -37,7 +37,7 @@ public class StoryText : MonoBehaviour
     }
     public IEnumerator LoadText()
     { 
-        for(int i = 0; i < Str.Length; i++)
+        for(int i = 0; i <= Str.Length; i++)
         {
             textMesh.text = Str.Substring(0,i);
             yield return new WaitForSeconds(0.1f);
