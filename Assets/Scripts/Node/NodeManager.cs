@@ -38,6 +38,7 @@ public class NodeManager : MonoBehaviour
 
         m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
 
+        m_ending_story_index = -1;  // hack
 
         // initialize adjacency
         foreach (LinkData link_data in m_node_graph.m_link_data_list)
@@ -102,6 +103,10 @@ public class NodeManager : MonoBehaviour
             story_panel.SetStoryDataList(data.m_story_data);
             story_panel.Initialize(StoryFinishCallback);
         }
+        else
+        {
+            GameManager.GetInstance().CheckEndGame(StartEndingStory);
+        }
     }
 
     public void StoryFinishCallback()
@@ -140,6 +145,12 @@ public class NodeManager : MonoBehaviour
     private void CreateLinkInstance(NodeData data_a, NodeData data_b, int m_weight)
     {
         if (HasShowLink(data_a.m_index, data_b.m_index))
+        {
+            return;
+        }
+
+        // hack
+        if(m_ending_story_index >= 0)
         {
             return;
         }
@@ -247,8 +258,6 @@ public class NodeManager : MonoBehaviour
 
     private void StartEndingStory()
     {
-        SetOtherObjectActive(false);
-
         if (m_found_node_index_list.Count == m_node_graph.m_node_data_list.Count)
         {
             m_reach_ending_story_list = m_ending_story_list_true;
@@ -264,14 +273,14 @@ public class NodeManager : MonoBehaviour
             return;
         }
 
-        SetOtherObjectActive(false);
-
         GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
         StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
         story_panel.SetStoryDataList(m_reach_ending_story_list[0]);
         story_panel.Initialize(ShowNextEndingStory);
 
         m_ending_story_index = 0;
+
+        SetOtherObjectActive(false);
     }
 
     private void ShowNextOpeningStory()
@@ -291,6 +300,8 @@ public class NodeManager : MonoBehaviour
 
     private void ShowNextEndingStory()
     {
+        SetOtherObjectActive(false);
+
         ++m_ending_story_index;
         if (m_ending_story_index == m_reach_ending_story_list.Count)
         {
