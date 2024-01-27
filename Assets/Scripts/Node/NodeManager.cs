@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NodeManager : MonoBehaviour
 {
@@ -73,7 +74,17 @@ public class NodeManager : MonoBehaviour
 
             GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
             StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
-            story_panel.Initialize(StoryFinishCallback);
+
+            NodeData data = m_node_graph.m_node_data_list.Find(node_data => node_data.m_index == active_node_index);
+            if (data.m_is_end)
+            {
+                // todo: ends
+                story_panel.Initialize(BackToMenu);
+            }
+            else
+            {
+                story_panel.Initialize(StoryFinishCallback);
+            }
         }
     }
 
@@ -82,6 +93,11 @@ public class NodeManager : MonoBehaviour
         SetOtherObjectActive(true);
 
         StartCoroutine(ShowAdjacencyNodes());
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 
     private void CreateNodeInstance(NodeData node_data)

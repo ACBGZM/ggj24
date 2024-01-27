@@ -18,14 +18,12 @@ public class GameManager : MonoBehaviour
                 instance = gameObject.AddComponent<GameManager>();
             }
 
-            DontDestroyOnLoad(instance.gameObject);
         }
         return instance;
     }
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         m_adjacency = new Adjacency();
         m_is_first_click = true;
     }
