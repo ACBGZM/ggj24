@@ -77,3 +77,4 @@ UpgradeLog*.htm
 .vscode/
 *.user
 .DS_Store
+/GamePackage

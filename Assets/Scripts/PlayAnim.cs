@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 //using static System.Net.Mime.MediaTypeNames;
 
 public class PlayAnim : MonoBehaviour
@@ -22,7 +23,7 @@ public class PlayAnim : MonoBehaviour
     {
         texs = new List<Texture>();
         RawImageObject = GetComponent<RawImage>();
-        enumerator = LoadTexture2D(Application.dataPath + "/Resources/Image/" + Folder);
+        enumerator = LoadTexture2D(Application.dataPath + "Image/" + Folder);
         //StartCoroutine(enumerator);
     }
 
@@ -35,6 +36,9 @@ public class PlayAnim : MonoBehaviour
 
     public IEnumerator LoadTexture2D(string path)
     {
+        texs = Resources.LoadAll<Texture>("Image/" + Folder).ToList();
+
+        /*
         UnityWebRequest request;
         DirectoryInfo direction = new DirectoryInfo(path);
         //文件夹下一层的所有子文件
@@ -63,6 +67,8 @@ public class PlayAnim : MonoBehaviour
             }
 
         }
+        */
+
         for (int i = 0; i < texs.Count; i++)//按时间间隔切换图片
         {
             RawImageObject.texture = texs[i];
