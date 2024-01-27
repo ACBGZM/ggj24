@@ -50,11 +50,13 @@ public class StoryPanel : MouseClickInteraction
     public void SetStoryDataList(StoryData story_data_list)
     {
         m_story_data = story_data_list;
+        m_show_image.sprite = story_data_list.m_story_image;
     }
 
-    public void SetStoryImage(Sprite show_sprite)
+    public void SetFullScreenImage()
     {
-        m_show_image.sprite = show_sprite;
+        m_show_image.rectTransform.sizeDelta = new Vector2(1920, 1080);
+        m_story_data.m_story_list.Clear();
     }
 
     public IEnumerator LoadText()//生成文本框

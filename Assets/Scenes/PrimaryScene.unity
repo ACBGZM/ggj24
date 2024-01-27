@@ -807,6 +807,17 @@ MonoBehaviour:
   m_story_panel_prefab: {fileID: 5090077866894405282, guid: 7c98e36e9a627c940aca9654491628b7, type: 3}
   m_value_panel: {fileID: 443889612}
   m_node_graph: {fileID: 11400000, guid: 2183e9aaedff0b44cb82d14e2fe2d616, type: 2}
+  m_opening_story_list:
+  - {fileID: 11400000, guid: 3f2462a0c1174d14c932b0a59c9849c2, type: 2}
+  - {fileID: 11400000, guid: 6954984170bfadd43aabdaba5fae603d, type: 2}
+  - {fileID: 11400000, guid: 428bc3b7c57e80941a3442c6e36e16f9, type: 2}
+  - {fileID: 11400000, guid: da770ff68c51be046be8baf560bb6906, type: 2}
+  m_ending_story_list_true:
+  - {fileID: 11400000, guid: 3f2462a0c1174d14c932b0a59c9849c2, type: 2}
+  - {fileID: 11400000, guid: 6954984170bfadd43aabdaba5fae603d, type: 2}
+  m_ending_story_list_normal:
+  - {fileID: 11400000, guid: 428bc3b7c57e80941a3442c6e36e16f9, type: 2}
+  - {fileID: 11400000, guid: da770ff68c51be046be8baf560bb6906, type: 2}
 --- !u!1 &1430020564
 GameObject:
   m_ObjectHideFlags: 0

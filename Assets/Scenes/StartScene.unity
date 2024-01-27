@@ -847,7 +847,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee6c82fd0c0c4b4e844e4b3ef2ed33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_node_prefab: {fileID: 0}
+  m_link_prefab: {fileID: 0}
   m_story_panel_prefab: {fileID: 5090077866894405282, guid: 7c98e36e9a627c940aca9654491628b7, type: 3}
+  m_value_panel: {fileID: 0}
+  m_node_graph: {fileID: 0}
+  m_opening_story_list: []
+  m_ending_story_list_true: []
+  m_ending_story_list_normal: []
 --- !u!1 &1395929389
 GameObject:
   m_ObjectHideFlags: 0
