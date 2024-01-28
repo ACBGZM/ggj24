@@ -50,13 +50,20 @@ public class StoryPanel : MouseClickInteraction
     public void SetStoryDataList(StoryData story_data_list)
     {
         m_story_data = story_data_list;
-        m_show_image.sprite = story_data_list.m_story_image;
+        if(story_data_list.m_story_image == null)
+        {
+            m_show_image.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_show_image.sprite = story_data_list.m_story_image;
+        }
     }
 
     public void SetFullScreenImage()
     {
         m_show_image.rectTransform.sizeDelta = new Vector2(1920, 1080);
-        m_story_data.m_story_list.Clear();
+        // m_story_data.m_story_list.Clear();
     }
 
     public IEnumerator LoadText()//生成文本框
@@ -67,7 +74,7 @@ public class StoryPanel : MouseClickInteraction
         {
             foreach (StoryTextData story_data in m_story_data.m_story_list)
             {
-                yield return new WaitForSeconds(story_data.m_wait_time);
+                yield return new WaitForSeconds(story_data.m_wait_time / 1.5f);
                 AddText(story_data.m_text_content, new Vector3(story_data.m_x, story_data.m_y, 0.0f));
 
             }

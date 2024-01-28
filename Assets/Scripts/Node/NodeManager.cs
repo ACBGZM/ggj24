@@ -45,6 +45,8 @@ public class NodeManager : MonoBehaviour
         {
             GameManager.GetInstance().m_adjacency.AddEdge(link_data);
         }
+
+        //m_opening_story_list = new List<StoryData>(); // debug
     }
 
     public void Start()
@@ -220,9 +222,8 @@ public class NodeManager : MonoBehaviour
         if (node_data != null)
         {
             // calculate value of current node
-            GameManager.GetInstance().AddToValue(node_data.m_bonus);
-            node_data.m_bonus = 0;
             Node node = m_node_list.Find(node => node.GetNodeIndex() == node_data.m_index);
+            GameManager.GetInstance().AddToValue(node.GetNodeValue());
             if(node != null)
             {
                 node.SetNodeValue(0);
@@ -278,6 +279,7 @@ public class NodeManager : MonoBehaviour
         GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
         StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
         story_panel.SetStoryDataList(m_opening_story_list[0]);
+        story_panel.SetFullScreenImage();
         story_panel.Initialize(ShowNextOpeningStory);
         m_opening_story_index = 0;
     }
@@ -321,6 +323,7 @@ public class NodeManager : MonoBehaviour
         GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
         StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
         story_panel.SetStoryDataList(m_opening_story_list[m_opening_story_index]);
+        story_panel.SetFullScreenImage();
         story_panel.Initialize(ShowNextOpeningStory);
     }
 

@@ -29,7 +29,7 @@ public class StoryText : MonoBehaviour
         Str = text;
 
         textMesh.text = Str;
-        bg.rectTransform.sizeDelta = textMesh.GetPreferredValues() + new Vector2(80f, 40f);
+        bg.rectTransform.sizeDelta = textMesh.GetPreferredValues() + new Vector2(200f, 100f);
         //bg.rectTransform.sizeDelta = new Vector2(Str.Length * 30 + 200, bg.rectTransform.sizeDelta.y);
         textMesh.text = "";
         StartCoroutine(LoadText());
@@ -40,7 +40,7 @@ public class StoryText : MonoBehaviour
         for(int i = 0; i <= Str.Length; i++)
         {
             textMesh.text = Str.Substring(0,i);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.08f);
         }
     }
 }

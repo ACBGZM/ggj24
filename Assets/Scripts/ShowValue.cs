@@ -20,6 +20,8 @@ public class ValuePanel : MonoBehaviour
         }
 
         m_image_layout = GetComponent<HorizontalLayoutGroup>().gameObject;
+
+        Repaint();
     }
 
     void Update()

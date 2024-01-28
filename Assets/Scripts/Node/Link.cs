@@ -59,8 +59,8 @@ public class Link : MonoBehaviour
         GetComponentInChildren<TextMeshProUGUI>().text = m_cost.ToString();
         GetComponentInChildren<TextMeshProUGUI>().gameObject.transform.localPosition =
             new Vector3(
-                (m_line_renderer.GetPosition(0).x + m_line_renderer.GetPosition(1).x) / 2 + ((m_direction.x > 0.0f) ? (50.0f) : (-50.0f)),
-                (m_line_renderer.GetPosition(0).y + m_line_renderer.GetPosition(1).y) / 2 + 50.0f,
+                (m_line_renderer.GetPosition(0).x + m_line_renderer.GetPosition(1).x) / 2 /*+ ((m_direction.x > 0.0f) ? (50.0f) : (-50.0f))*/,
+                (m_line_renderer.GetPosition(0).y + m_line_renderer.GetPosition(1).y) / 2 + 40.0f,
                 0.0f
             );
     }
