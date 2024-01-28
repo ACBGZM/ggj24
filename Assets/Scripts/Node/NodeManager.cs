@@ -97,6 +97,17 @@ public class NodeManager : MonoBehaviour
 
             NodeData data = m_node_graph.m_node_data_list.Find(node_data => node_data.m_index == active_node_index);
 
+            if(data == null || data.m_story_data == null)
+            {
+                return;
+            }
+
+            // temp
+            if(data.m_index == 4 || data.m_index == 9 || data.m_index == 15)
+            {
+                active_node.ControlAnim(true);
+            }
+
             GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
             StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
 
@@ -164,9 +175,17 @@ public class NodeManager : MonoBehaviour
 
     private void UpdateLinks()
     {
-        foreach(Link link in m_link_list)
+        foreach (Link link in m_link_list)
         {
             link.UpdateCost();
+        }
+    }
+
+    private void UpdateNodes()
+    {
+        foreach (Node node in m_node_list)
+        {
+            node.UpdateCost();
         }
     }
 
@@ -202,6 +221,13 @@ public class NodeManager : MonoBehaviour
         {
             // calculate value of current node
             GameManager.GetInstance().AddToValue(node_data.m_bonus);
+            node_data.m_bonus = 0;
+            Node node = m_node_list.Find(node => node.GetNodeIndex() == node_data.m_index);
+            if(node != null)
+            {
+                node.SetNodeValue(0);
+            }
+            UpdateNodes();
 
             // show new nodes and links
             List<Edge> adjacent_edges = new List<Edge>();

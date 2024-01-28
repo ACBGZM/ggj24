@@ -94,14 +94,14 @@ public class GameManager : MonoBehaviour
     public void EnableMouseInteraction()
     {
         //Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.visible = true;
         m_mouse_interact_enable = true;
     }
 
     public void DisableMouseInteraction()
     {
         //Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         m_mouse_interact_enable = false;
     }
 
