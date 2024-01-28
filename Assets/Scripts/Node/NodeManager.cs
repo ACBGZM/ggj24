@@ -26,7 +26,7 @@ public class NodeManager : MonoBehaviour
         m_node_prefab = Resources.Load<GameObject>("Node");
         m_story_panel_prefab = Resources.Load<GameObject>("StoryPanel");
 
-        m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
+        //m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
 
 
         // initialize adjacency

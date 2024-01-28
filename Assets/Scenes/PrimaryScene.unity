@@ -806,7 +806,7 @@ MonoBehaviour:
   m_link_prefab: {fileID: 8045004954651639550, guid: 598a23438bb60224d926399cf4fe08ea, type: 3}
   m_story_panel_prefab: {fileID: 5090077866894405282, guid: 7c98e36e9a627c940aca9654491628b7, type: 3}
   m_value_panel: {fileID: 443889612}
-  m_node_graph: {fileID: 11400000, guid: 2183e9aaedff0b44cb82d14e2fe2d616, type: 2}
+  m_node_graph: {fileID: 11400000, guid: e92eb17574f62ca4facdc8e9bb1d7302, type: 2}
 --- !u!1 &1430020564
 GameObject:
   m_ObjectHideFlags: 0
