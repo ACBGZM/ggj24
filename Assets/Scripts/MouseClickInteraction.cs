@@ -8,6 +8,11 @@ public class MouseClickInteraction : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private Action m_on_click;
 
+    public void SetMouseNotOverPanel()
+    {
+        m_is_mouse_over_panel = false;
+    }
+
     public void SetClickAction(Action action)
     {
         m_on_click = action;
@@ -25,7 +30,7 @@ public class MouseClickInteraction : MonoBehaviour, IPointerEnterHandler, IPoint
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && m_is_mouse_over_panel)
+        if (Input.GetMouseButtonDown(0) && m_is_mouse_over_panel && GameManager.GetInstance().m_mouse_interact_enable)
         {
             m_on_click?.Invoke();
         }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b487b7c98cf854346a14337bda12858f, type: 3}
+  m_Name: story1 3
+  m_EditorClassIdentifier: 
+  m_story_image: {fileID: 0}
+  m_story_list:
+  - m_text_content: "\u90A3\u662F\u4E00\u4F4D\u5973\u6027\uFF0C\u6216\u8BB8\u5DF2\u7ECF\u53D8\u6210\u4E00\u5934\u5973\u6027\u4E86\u3002\n
+      \u201C\u4E0D\u662F\u2026\u6211\u2026\u4E0D\u662F\u5973\u5DEB\u2026\u2026\u201D\n
+      \u53CD\u9A73\u6362\u6765\u7684\u53EA\u6709\u5492\u9A82\uFF0C\u4EE5\u53CA\u66F4\u6B8B\u9177\u7684\u5BA1\u5224"
+    m_x: 0
+    m_y: 200
+    m_wait_time: 0

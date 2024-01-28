@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b487b7c98cf854346a14337bda12858f, type: 3}
+  m_Name: story1 1
+  m_EditorClassIdentifier: 
+  m_story_image: {fileID: 21300000, guid: b32777e7b2f31834fae6cbdbf7f32c0a, type: 3}
+  m_story_list:
+  - m_text_content: "\u5C11\u5E74\u5F00\u53E3\uFF0C\u8BD5\u56FE\u4E0E\u95E8\u6C9F\u901A\n\u62F3\u6253\u811A\u8E22\uFF0C\u66B4\u529B\u66FF\u4EE3\u4E86\u8A00\u8BED\n\u5C11\u5E74\u5F2F\u8170\uFF0C\u62FE\u8D77\u571F\u4E2D\u77F3\u65A7\n\u4ED6\u6210\u529F\u5A01\u80C1\u4E86\u95E8\u3002"
+    m_x: 310
+    m_y: 300
+    m_wait_time: 0
+  - m_text_content: "\u66B4\u529B\u53C8\u4E00\u6B21\u51FB\u8D25\u4E86\u6587\u660E\n\u6C89\u91CD\u7684\u5927\u95E8\u54CD\u8D77\u9686\u91CD\u7684\u8F70\u58F0\n\u5973\u5B69\u8F7B\u629A\u7537\u5B69\u7EA2\u80BF\u7684\u53CC\u624B\n\u4E0E\u4ED6\u4E00\u540C\u8FC8\u5165\u6781\u4E50\u7684\u4E16\u754C"
+    m_x: -300
+    m_y: -310
+    m_wait_time: 7

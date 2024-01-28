@@ -13,31 +13,45 @@ public class NodeManager : MonoBehaviour
     public NodeGraph m_node_graph;
 
     private List<uint> m_found_node_index_list;
+    private List<uint> m_shown_node_index_list;
 
     private List<Node> m_node_list;
     private List<Link> m_link_list;
 
+    [SerializeField] private List<StoryData> m_opening_story_list;
+    private int m_opening_story_index;
+
+    [SerializeField] private List<StoryData> m_ending_story_list_true;
+    [SerializeField] private List<StoryData> m_ending_story_list_normal;
+    private List<StoryData> m_reach_ending_story_list;
+    private int m_ending_story_index;
+
     public void Awake()
     {
         m_found_node_index_list = new List<uint>();
+        m_shown_node_index_list = new List<uint>();
         m_node_list = new List<Node>();
         m_link_list = new List<Link>();
 
         m_node_prefab = Resources.Load<GameObject>("Node");
         m_story_panel_prefab = Resources.Load<GameObject>("StoryPanel");
 
-        m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
+        //m_node_graph = Resources.Load<NodeGraph>("NodeGraphTest");
 
+        m_ending_story_index = -1;  // hack
 
         // initialize adjacency
         foreach (LinkData link_data in m_node_graph.m_link_data_list)
         {
             GameManager.GetInstance().m_adjacency.AddEdge(link_data);
         }
+
+        //m_opening_story_list = new List<StoryData>(); // debug
     }
 
     public void Start()
     {
+        // create begin node
         foreach (NodeData node_data in m_node_graph.m_node_data_list)
         {
             if (node_data.m_is_begin)
@@ -46,6 +60,9 @@ public class NodeManager : MonoBehaviour
                 break;
             }
         }
+
+        // start opening story
+        StartOpeningStory();
     }
 
     public void NodeClickCallback()
@@ -80,28 +97,41 @@ public class NodeManager : MonoBehaviour
 
             m_found_node_index_list.Add(active_node_index);
 
-            GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
-            StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
             NodeData data = m_node_graph.m_node_data_list.Find(node_data => node_data.m_index == active_node_index);
 
-            story_panel.SetStoryDataList(data.m_story_data);
-            story_panel.SetStoryImage(data.m_story_data.m_story_image);
+            if(data == null || data.m_story_data == null)
+            {
+                return;
+            }
 
-            if (data.m_is_end)
+            // temp
+            if(data.m_index == 4 || data.m_index == 9 || data.m_index == 15)
             {
-                // todo: ends
-                story_panel.Initialize(BackToMenu);
+                active_node.ControlAnim(true);
             }
-            else
-            {
-                story_panel.Initialize(StoryFinishCallback);
-            }
+
+            GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
+            StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
+
+            story_panel.SetStoryDataList(data.m_story_data);
+            story_panel.Initialize(StoryFinishCallback);
+        }
+        else
+        {
+            GameManager.GetInstance().CheckEndGame(StartEndingStory);
         }
     }
 
     public void StoryFinishCallback()
     {
         SetOtherObjectActive(true);
+
+        GameManager.GetInstance().CheckEndGame(StartEndingStory);
+        
+        if (m_found_node_index_list.Count == m_node_graph.m_node_data_list.Count)
+        {
+            StartEndingStory();
+        }
 
         StartCoroutine(ShowAdjacencyNodes());
     }
@@ -113,11 +143,11 @@ public class NodeManager : MonoBehaviour
 
     private void CreateNodeInstance(NodeData node_data)
     {
-        if (m_found_node_index_list.Contains(node_data.m_index))
+        if (m_shown_node_index_list.Contains(node_data.m_index))
         {
             return;
         }
-
+        m_shown_node_index_list.Add(node_data.m_index);
         GameObject node_object = Instantiate(m_node_prefab, transform);
         Node node = node_object.GetComponent<Node>();
         node.Initialize(node_data, NodeClickCallback);
@@ -132,6 +162,12 @@ public class NodeManager : MonoBehaviour
             return;
         }
 
+        // hack
+        if(m_ending_story_index >= 0)
+        {
+            return;
+        }
+
         GameObject link_object = Instantiate(m_link_prefab, transform);
         Link link = link_object.GetComponent<Link>();
         link.Initialize(data_a, data_b, m_weight);
@@ -141,9 +177,17 @@ public class NodeManager : MonoBehaviour
 
     private void UpdateLinks()
     {
-        foreach(Link link in m_link_list)
+        foreach (Link link in m_link_list)
         {
             link.UpdateCost();
+        }
+    }
+
+    private void UpdateNodes()
+    {
+        foreach (Node node in m_node_list)
+        {
+            node.UpdateCost();
         }
     }
 
@@ -151,7 +195,13 @@ public class NodeManager : MonoBehaviour
     {
         m_value_panel.SetActive(active);
 
-        foreach(Link link in m_link_list)
+        foreach (Node node in m_node_list)
+        {
+            node.gameObject.SetActive(active);
+            node.SetMouseNotOverPanel();
+        }
+
+        foreach (Link link in m_link_list)
         {
             link.gameObject.SetActive(active);
         }
@@ -172,7 +222,13 @@ public class NodeManager : MonoBehaviour
         if (node_data != null)
         {
             // calculate value of current node
-            GameManager.GetInstance().AddToValue(node_data.m_bonus);
+            Node node = m_node_list.Find(node => node.GetNodeIndex() == node_data.m_index);
+            GameManager.GetInstance().AddToValue(node.GetNodeValue());
+            if(node != null)
+            {
+                node.SetNodeValue(0);
+            }
+            UpdateNodes();
 
             // show new nodes and links
             List<Edge> adjacent_edges = new List<Edge>();
@@ -209,5 +265,86 @@ public class NodeManager : MonoBehaviour
         }
 
         return m_link_list.Find(edge => (edge.m_node_index_a == a && edge.m_node_index_b == b)) != null;
+    }
+
+    private void StartOpeningStory()
+    {
+        if (m_opening_story_list == null || m_opening_story_list.Count == 0)
+        {
+            return;
+        }
+
+        SetOtherObjectActive(false);
+
+        GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
+        StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
+        story_panel.SetStoryDataList(m_opening_story_list[0]);
+        story_panel.SetFullScreenImage();
+        story_panel.Initialize(ShowNextOpeningStory);
+        m_opening_story_index = 0;
+    }
+
+    private void StartEndingStory()
+    {
+        if (m_found_node_index_list.Count == m_node_graph.m_node_data_list.Count)
+        {
+            m_reach_ending_story_list = m_ending_story_list_true;
+        }
+        else
+        {
+            m_reach_ending_story_list = m_ending_story_list_normal;
+        }
+
+
+        if (m_reach_ending_story_list == null || m_reach_ending_story_list.Count == 0)
+        {
+            return;
+        }
+
+        GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
+        StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
+        story_panel.SetStoryDataList(m_reach_ending_story_list[0]);
+        story_panel.Initialize(ShowNextEndingStory);
+
+        m_ending_story_index = 0;
+
+        SetOtherObjectActive(false);
+    }
+
+    private void ShowNextOpeningStory()
+    {
+        ++m_opening_story_index;
+        if(m_opening_story_index == m_opening_story_list.Count)
+        {
+            SetOtherObjectActive(true);
+            return;
+        }
+
+        GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
+        StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
+        story_panel.SetStoryDataList(m_opening_story_list[m_opening_story_index]);
+        story_panel.SetFullScreenImage();
+        story_panel.Initialize(ShowNextOpeningStory);
+    }
+
+    private void ShowNextEndingStory()
+    {
+        SetOtherObjectActive(false);
+
+        ++m_ending_story_index;
+        if (m_ending_story_index == m_reach_ending_story_list.Count)
+        {
+            BackToMenu();
+            return;
+        }
+
+        GameObject story_panel_object = Instantiate(m_story_panel_prefab, transform);
+        StoryPanel story_panel = story_panel_object.GetComponent<StoryPanel>();
+        story_panel.SetStoryDataList(m_reach_ending_story_list[m_ending_story_index]);
+        if(m_ending_story_index == m_reach_ending_story_list.Count - 1)
+        {
+            story_panel.SetFullScreenImage();
+        }
+        story_panel.Initialize(ShowNextEndingStory);
     }
 }

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6545\u4E8B\u6587\u672C"
+  m_text: "\u751F\u6709\u8EAF\u5E72\u7684\u6811\u6728\u624E\u6839\u5728\u4E00\u5EA7\u5B64\u5C9B\n\u8FD9\u6811\u6728\u901A\u4F53\u7EAF\u767D\uFF0C\u597D\u4F3C\u957F\u6709\u624B\u811A\u7684\u706F\u5854\n\u4ED6\u7684\u679D\u8513\u76D8\u866C\u5367\u9F99\uFF0C\u72B9\u5982\u6C34\u6CE2\u8361\u6F3E\u65F6\u7684\u6D9F\u6F2A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 905c6d461074d0b46bbdb3ce36742f9a, type: 2}
   m_sharedMaterial: {fileID: 225040612727566759, guid: 905c6d461074d0b46bbdb3ce36742f9a, type: 2}
@@ -93,13 +93,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.7372549}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.77254903}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

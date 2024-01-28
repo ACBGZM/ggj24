@@ -34,8 +34,8 @@ public class Link : MonoBehaviour
         m_texture = Resources.Load<Texture2D>("Line");
 
         m_line_renderer.material.mainTexture = m_texture;
-        m_line_renderer.startWidth = 0.15f;
-        m_line_renderer.endWidth = 0.15f;
+        m_line_renderer.startWidth = 0.08f;
+        m_line_renderer.endWidth = 0.08f;
 
         Vector3 position_a = new Vector3(data_a.m_x, data_a.m_y, 0.0f);
         Vector3 position_b = new Vector3(data_b.m_x, data_b.m_y, 0.0f);
@@ -59,8 +59,8 @@ public class Link : MonoBehaviour
         GetComponentInChildren<TextMeshProUGUI>().text = m_cost.ToString();
         GetComponentInChildren<TextMeshProUGUI>().gameObject.transform.localPosition =
             new Vector3(
-                (m_line_renderer.GetPosition(0).x + m_line_renderer.GetPosition(1).x) / 2 + ((m_direction.x > 0.0f) ? (50.0f) : (-50.0f)),
-                (m_line_renderer.GetPosition(0).y + m_line_renderer.GetPosition(1).y) / 2 + 50.0f,
+                (m_line_renderer.GetPosition(0).x + m_line_renderer.GetPosition(1).x) / 2 /*+ ((m_direction.x > 0.0f) ? (50.0f) : (-50.0f))*/,
+                (m_line_renderer.GetPosition(0).y + m_line_renderer.GetPosition(1).y) / 2 + 40.0f,
                 0.0f
             );
     }

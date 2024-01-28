@@ -78,3 +78,4 @@ UpgradeLog*.htm
 *.user
 .DS_Store
 /GamePackage
+/Assets/Plugins/TextMesh Pro/Resources/SourceHanSansCN-Medium SDF.asset

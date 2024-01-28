@@ -20,6 +20,8 @@ public class ValuePanel : MonoBehaviour
         }
 
         m_image_layout = GetComponent<HorizontalLayoutGroup>().gameObject;
+
+        Repaint();
     }
 
     void Update()
@@ -42,11 +44,16 @@ public class ValuePanel : MonoBehaviour
 
         int value = GameManager.GetInstance().GetValue();
 
+        if(value < 0)
+        {
+            return;
+        }
+
         do
         {
             GameObject value_image = Instantiate(m_value_image_prefab, m_image_layout.transform);
             Image value_image_component = value_image.GetComponent<Image>();
-            value_image_component.sprite = m_value_numbers[value % 10];
+            value_image_component.sprite = m_value_numbers[Mathf.Abs(value % 10)];
             value /= 10;
         } while (value != 0);
     }
