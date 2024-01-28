@@ -15,7 +15,7 @@ MonoBehaviour:
   m_story_image: {fileID: 21300000, guid: 0dcea813033642848b807ec7a2e50fc2, type: 3}
   m_story_list:
   - m_text_content: "\u4ED6\u4EEC\u5728\u5B64\u5C9B\u4E2D\u6B22\u7B11\uFF0C\u6210\u957F\n\u5403\u559D\u8863\u7740\uFF0C\u7686\u81EA\u679D\u5934\u6389\u843D\n"
-    m_x: 274
+    m_x: 100
     m_y: 200
     m_wait_time: 0.5
   - m_text_content: "\u6811\u6728\u6EE1\u8DB3\u4ED6\u4EEC\u7684\u4E00\u5207\u613F\u671B\n\u4E00\u5929\u5929\uFF0C\u4E00\u5E74\u5E74\uFF0C\u4ED6\u4EEC\u9010\u6E10\u611F\u5230\u4E86\u5B64\u72EC"
