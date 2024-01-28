@@ -11,6 +11,7 @@ public class StartScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1920, 1080, false);
         BackAnim.isLoop = true;
         BackAnim.Folder = "StartLoop";
         BackAnim.RefreshAnim();
