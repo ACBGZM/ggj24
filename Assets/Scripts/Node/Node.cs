@@ -17,8 +17,14 @@ public class Node : MouseClickInteraction
         transform.localPosition += new Vector3(data.m_x, data.m_y, 0);
         GetComponentInChildren<Image>().sprite = m_data.m_node_sprite;
 
-        // debug
-        GetComponentInChildren<TextMeshProUGUI>().text = m_data.m_index.ToString() + "(" + m_data.m_bonus.ToString() + ")";
+        string str = "";
+        if (m_data.m_bonus > 0)
+        {
+            str += "+";
+        }
+
+        str += m_data.m_bonus.ToString();
+        GetComponentInChildren<TextMeshProUGUI>().text = m_data.m_index.ToString() + "(" + str + ")";   // debug
 
         m_animator = GetComponentInChildren<Animator>();
         m_animator.enabled = false;
@@ -52,5 +58,32 @@ public class Node : MouseClickInteraction
         {
             m_animator.enabled = false;
         }
+    }
+
+    public void ControlAnim(bool enabled)
+    {
+        GameObject anim_object = transform.Find("Anim")?.gameObject;
+
+        if(anim_object != null)
+        {
+            anim_object.GetComponent<Animator>().enabled = enabled;
+        }
+    }
+
+    public void SetNodeValue(int value)
+    {
+        m_data.m_bonus = value;
+    }
+
+    public void UpdateCost()
+    {
+        string str = "";
+        if(m_data.m_bonus > 0)
+        {
+            str += "+";
+        }
+
+        str += m_data.m_bonus.ToString();
+        GetComponentInChildren<TextMeshProUGUI>().text = str;
     }
 }

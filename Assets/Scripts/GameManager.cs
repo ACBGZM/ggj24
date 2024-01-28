@@ -26,19 +26,26 @@ public class GameManager : MonoBehaviour
     {
         m_adjacency = new Adjacency();
         m_is_first_click = true;
+
+        m_value = 0;
+        AddToValue(0);
+
+        m_mouse_interact_enable = true;
     }
 
     private uint m_current_node_index;
 
     private uint m_previous_node_index;
 
-    public bool m_is_first_click;
+    [HideInInspector] public bool m_is_first_click;
 
     private int m_value;
 
     public Adjacency m_adjacency { get; set; }
 
     public Action m_value_change_event { get; set; }
+
+    public bool m_mouse_interact_enable { get; private set; }
 
     public int GetValue() => m_value;
 
@@ -78,6 +85,7 @@ public class GameManager : MonoBehaviour
         if(m_adjacency.GetWeight(m_previous_node_index, m_current_node_index, out int weight))
         {
             AddToValue(weight);
+            // Debug.Log(m_previous_node_index.ToString() + " -> " + m_current_node_index.ToString() + "   " + weight.ToString());
         }
 
         m_adjacency.SetWeightToZero(m_previous_node_index, m_current_node_index);
@@ -85,13 +93,23 @@ public class GameManager : MonoBehaviour
 
     public void EnableMouseInteraction()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+        m_mouse_interact_enable = true;
     }
 
     public void DisableMouseInteraction()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        m_mouse_interact_enable = false;
+    }
+
+    public void CheckEndGame(Action callback)
+    {
+        if(m_value < 0)
+        {
+            callback?.Invoke();
+        }
     }
 }

@@ -155,11 +155,11 @@ RectTransform:
   - {fileID: 934434219}
   m_Father: {fileID: 1430020565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 500, y: 200}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +806,18 @@ MonoBehaviour:
   m_link_prefab: {fileID: 8045004954651639550, guid: 598a23438bb60224d926399cf4fe08ea, type: 3}
   m_story_panel_prefab: {fileID: 5090077866894405282, guid: 7c98e36e9a627c940aca9654491628b7, type: 3}
   m_value_panel: {fileID: 443889612}
-  m_node_graph: {fileID: 11400000, guid: e92eb17574f62ca4facdc8e9bb1d7302, type: 2}
+  m_node_graph: {fileID: 11400000, guid: 2183e9aaedff0b44cb82d14e2fe2d616, type: 2}
+  m_opening_story_list:
+  - {fileID: 11400000, guid: 3f2462a0c1174d14c932b0a59c9849c2, type: 2}
+  - {fileID: 11400000, guid: 6954984170bfadd43aabdaba5fae603d, type: 2}
+  - {fileID: 11400000, guid: 428bc3b7c57e80941a3442c6e36e16f9, type: 2}
+  - {fileID: 11400000, guid: da770ff68c51be046be8baf560bb6906, type: 2}
+  m_ending_story_list_true:
+  - {fileID: 11400000, guid: 3f2462a0c1174d14c932b0a59c9849c2, type: 2}
+  - {fileID: 11400000, guid: 6954984170bfadd43aabdaba5fae603d, type: 2}
+  m_ending_story_list_normal:
+  - {fileID: 11400000, guid: 428bc3b7c57e80941a3442c6e36e16f9, type: 2}
+  - {fileID: 11400000, guid: da770ff68c51be046be8baf560bb6906, type: 2}
 --- !u!1 &1430020564
 GameObject:
   m_ObjectHideFlags: 0

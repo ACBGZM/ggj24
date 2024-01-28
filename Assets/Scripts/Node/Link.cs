@@ -34,8 +34,8 @@ public class Link : MonoBehaviour
         m_texture = Resources.Load<Texture2D>("Line");
 
         m_line_renderer.material.mainTexture = m_texture;
-        m_line_renderer.startWidth = 0.15f;
-        m_line_renderer.endWidth = 0.15f;
+        m_line_renderer.startWidth = 0.08f;
+        m_line_renderer.endWidth = 0.08f;
 
         Vector3 position_a = new Vector3(data_a.m_x, data_a.m_y, 0.0f);
         Vector3 position_b = new Vector3(data_b.m_x, data_b.m_y, 0.0f);
