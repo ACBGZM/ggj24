@@ -28,9 +28,9 @@ MonoBehaviour:
     m_wait_time: 2
   - m_text_content: "\u201C\u4ECE\u524D\u7684\u4E16\u754C\u771F\u6709\u8DA3\uFF0C\u8981\u662F\u5988\u5988\u8FD8\u2014\u2014\u201D\n"
     m_x: 0
-    m_y: 0
+    m_y: -150
     m_wait_time: 3
   - m_text_content: "\u201C\u522B\u8BF4\u4E86\uFF0C\u7EE7\u7EED\u770B\u5427\u3002\u201D"
     m_x: 0
-    m_y: 0
+    m_y: -10
     m_wait_time: 4
